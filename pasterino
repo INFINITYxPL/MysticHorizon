@@ -1,0 +1,269 @@
+<div style="text-align: center;">
+				  <label style="font: 40px BebasNeue;color: #3891ff;">Mystic</label>
+				  <label style="font: 40px BebasNeueBook;color: #fff;">Horizon</label>
+				</div>
+				paste
+
+				padding-top: 2px;
+    text-align: center;
+    background-color: #0e0e0e;
+    height: 32px;
+    border-top: 5px solid #3891ff;
+    border-right: 1px solid #272727;
+    border-left: 1px solid #272727;
+    border-bottom: 1px solid #272727;
+    width: 800px;
+    position: relative;
+    display: block;
+    top: 56px;
+
+    margin-left: 320px;
+    text-align: right;
+    position: fixed;
+    top: 25px;
+    width: 800px;
+    background: green;
+    height: 22px;
+
+    <!-- Stats -->
+						<div class="container" style="text-align: left; margin-left: 300px; margin-top: 5px;">
+					  	
+						  	<label style="font: 12px Tahoma;color: #fff;">UserID:</label>
+								<label style="padding-left: 2px;font: 12px Tahoma;color: #fff;"><?php echo $_SESSION['userid']; ?></label>
+							<label style="padding-left: 2px;font: 12px Tahoma;color: #fff;">Experience:</label>
+								<label style="padding-left: 2px;font: 12px Tahoma;color: #fff;"><?php echo $experience; ?></label>
+							<label style="padding-left: 2px;font: 12px Tahoma;color: #fff;">Level:</label>
+								<label style="padding-left: 2px;font: 12px Tahoma;color: #fff;"><?php echo $level; ?></label>
+							<label style="padding-left: 2px;font: 12px Tahoma;color: #fff;">Honor:</label>
+								<label style="font: 12px Tahoma;color: #fff;"><?php echo $honor; ?></label>
+		
+			  			</div>
+			  		<!-- Stats 2 -->
+			  			<div class="container" style="text-align: right; margin-right: 475px; margin-top: -26px;">
+						
+							<label style="padding-left: 2px;font: 12px Tahoma;color: #fff;">Credits:</label>
+								<label style="padding-left: 2px;font: 12px Tahoma;color: #fff;"><?php echo $credits; ?></label>
+							<label style="padding-left: 2px;font: 12px Tahoma;color: #fff;">Uridium:</label>
+								<label style="padding-left: 2px;font: 12px Tahoma;color: #fff;"><?php echo $uridium; ?></label>
+							<label style="padding-left: 2px;font: 12px Tahoma;color: #fff;"><img src="img/icons/gold.gif" class="center" alt="gold" width="14" height="16"draggable="false"> e*gold :</label>
+								<label style="padding-left: 2px;font: 12px Tahoma;color: #fff;"><?php echo $e_gold; ?></label>
+
+			  			</div>
+
+
+
+			  			<?php
+	session_start();
+	$uid = $_SESSION['userid'];
+	if(!isset($_SESSION['logged_id']))
+	{
+		header("Location: index.php");
+		exit();
+	}
+	require_once "includes/config.php";
+
+	$connection = @new mysqli($host, $db_user, $db_password, $db_name);
+
+	if($connection->connect_errno!=0)
+	{
+		echo "Error: ".$connection->connect_errno." Description: ".$connection->connect_error;
+	}
+	else
+	{
+
+		$sql = "SELECT * FROM accounts WHERE user_id=". $_SESSION['userid'];
+
+	    if($result = $connection->query($sql)) 
+	    {
+	      if ($userData = $result->fetch_assoc()) 
+	      {
+	        $uridium = $userData['uridium'];
+	        $credits = $userData['credits'];
+	        $honor = $userData['honor'];
+	        $experience = $userData['experience'];
+	        $level = $userData['level'];
+	        $ship_id = $userData['ship_id'];
+	        $rank = $userData['rank'];
+	        $e_gold = $userData['e_gold'];
+	        $faction_id = $userData['faction_id'];
+	        $league= $userData['league'];
+	      }
+	    }
+	
+	    $connection->close();
+	}
+?>
+
+<?php
+	session_start();
+If(isset($_POST['Register'])) {
+	if(isset($_POST['email']))
+	{
+
+		$succes=true;
+
+		$username = $_POST['Username'];
+
+		if((strlen($username)<3) || (strlen($username)>20))
+		{
+			$succes=false;
+			$_SESSION[e_username]="error: Lenght Min 3 Max 20";
+		}
+
+		$email = $_POST['Email'];
+		$emailB = filter_var($email, FILTER_SANITIZE_EMAIL);
+
+		if((filter_var($emailB, FILTER_VALIDATE_EMAIL)==false) || ($emailB!=$email))
+		{
+			$succes=false;
+			$_SESSION['e_email']="error: must be like email@host.com";
+		}
+
+		$password = $_POST['Password'];
+		if((strlen($password)<8) || (strlen($password)>20))
+		{
+			$succes=false;
+			$_SESSION['e_password']="error: Lenght Min 8 Max 20";
+		}
+
+		$password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+
+		if(isset($_POST['Tos']))
+		{
+			$succes=false;
+			$_SESSION['e_tos']="error: Tos";
+		}
+
+		require_once "includes/config.php";
+
+		mysqli_report(MYSQLI_REPORT_STRICT);
+		try
+		{
+			$connection = new mysqli($host, $db_user, $db_password, $db_name);
+			if($connection->connect_errno!=0)
+			{
+				throw new Exception(mysqli_connect_errno());
+				
+			}
+			else
+			{
+				$result = $connection->query("SELECT user_id FROM accounts WHERE username='$username'");
+
+				if (!$result)throw new Exception($connection->error);
+				 
+				$users = $result->num_rows;
+				if($users>0)
+				{
+					$succes=false;
+					$_SESSION['e_username']="error: 11";
+				}
+				if($succes==true)
+				{
+					if($connection->query("INSERT INTO accounts VALUES(NULL, NULL, $username, $password_hash, $email, unknow, 1, 1, now() + INTERVAL 3 DAY, 1, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)"))
+					{
+						$_SESSION['registred']=true;
+						header('Location: InternalCompanyChoose.php');
+					}
+					else
+					{
+						throw new Exception($connection->error);
+					}
+				}
+				
+				$connection->close();
+			}
+		}
+		catch(Exception $e)
+		{
+			echo 'Error:'.$e;
+		}
+	}
+}
+?>
+<div class="item" style="background-image:url(https://darkorbit-22.bpsecure.com/do_img/global/items/bg-real_100x100.jpg?__cv=b1dee3c43f11a5dd8a91bce772b3de00);">
+                        <div class="itemList_singleItem" style="background-image:url(https://darkorbit-22.bpsecure.com/do_img/global/items/equipment/extra/cpu/anti-z1_100x100.png?__cv=6c2b9f5757ae583197fcab6b3b8e9000);">
+                            <a id="equipment_extra_cpu_anti-z1" href="javascript:void(0);" class="active">
+                                 <div class="item_borders">
+                                    <div class="item_hover"></div>
+                                    <div class="item_active"></div>
+                                   
+                                    <div style="position: absolute; top: 0px; height: 13px; text-align: center; width: 94px; margin: 3px; overflow: hidden; font-size: 10px; font-family: Verdana, Arial, sans-serif; opacity: 0.8; color: #f1f1f1; background-color: #0a131a;">ANTI-Z1</div>
+                                                                    </div>
+                            </a>
+                        </div>
+
+                        <?php
+
+session_start();
+
+if (isset($_POST["email"]) && isset($_POST["tos"]) && isset($_POST["username"]) && isset($_POST["password"]))
+{
+	
+
+		
+
+	$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+	$username = filter_input(INPUT_POST, 'username');
+	$password = filter_input(INPUT_POST, 'password');
+	$password_hash = password_hash($password, PASSWORD_DEFAULT);
+	$ip ='127.0.0.1';
+	$tester = '1';
+	$ispremium = '1';
+	//$premiumleft = now() + INTERVAL 3 DAY;
+	$premiumtype = '3';
+	$status = '0';
+	$isonline = '1';
+	$faction = '0';
+	if (empty($email)) {
+		$_SESSION['given_email'] = $_POST['email'];
+		header('Location: InternalRegister.php');
+		
+	} else {
+
+		require_once 'includes/database.php';
+		
+		//$checkQuery = $db->prepare("SELECT COUNT(`username`) FROM `accounts` WHERE `username` = :username");
+		//$checkQuery->bindValue(':username', $username);
+		//$checkQuery->execute();
+		//$check= count($checkQuery->fetchAll());
+		//if($check > 0)
+		$query="SELECT user_id FROM accounts WHERE username='$username'";
+		$query_res =   $db->query($query);
+		$count= count($query_res->fetchAll());
+		
+		if($count > 0)
+		{
+				header('Location: InternalRegister.php');
+				exit();
+		
+		} else {
+		 		
+		 		require_once 'includes/database.php';
+				$query = $db->prepare('INSERT INTO accounts VALUES (NULL, NULL, :username, :password, :email, :ip, :tester, :ispremium, now() + INTERVAL 3 DAY, :premiumtype, :status, :isonline, "1", "1", "1", "0", "0", "0", "0", "0", :faction, "0")');
+				$query->bindValue(':username', $username, PDO::PARAM_STR);
+				$query->bindValue(':password', $password_hash, PDO::PARAM_STR);
+				$query->bindValue(':email', $email, PDO::PARAM_STR);
+				$query->bindValue(':ip', $ip, PDO::PARAM_STR);
+				$query->bindValue(':tester', $tester, PDO::PARAM_INT);
+				$query->bindValue(':ispremium', $ispremium, PDO::PARAM_INT);
+				//$query->bindValue(':premiumleft', $premiumleft, PDO::PARAM_STR);
+				$query->bindValue(':premiumtype', $premiumtype, PDO::PARAM_INT);
+				$query->bindValue(':status', $status, PDO::PARAM_INT);
+				$query->bindValue(':isonline', $isonline, PDO::PARAM_INT);
+				$query->bindValue(':faction', $faction, PDO::PARAM_INT);
+				$query->execute();
+				
+
+				$_SESSION['$faction'] = $faction;
+				header('Location: CompanyChoose.php');
+				exit();
+
+		}
+		
+		
+		
+	}
+}
+
+?>

@@ -1,0 +1,69 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    /* height: 1080px; */
+    background: url(../img/bg.jpg) center top no-repeat;
+    overflow-x: hidden;
+    /* color: rgb(255, 255, 255); */
+    /* font-family: 'Lato', sans-serif; */
+}
+@font-face {
+    font-family: BebasNeue;
+    src: url(../fonts/BebasNeueRegular.otf);
+}
+@font-face {
+    font-family: BebasNeueBook;
+    src: url(../fonts/BebasNeueBook.otf);
+}
+
+#companyMain{
+    margin-top: 25px;
+}
+
+.btn-mmo{
+
+}
+.btn-eic{
+    
+}
+.btn-vru{
+    
+}
+
+.btn-mmo h3{
+    color: #ff2827;
+    font: 20px BebasNeue;
+    text-align: center;
+
+}
+
+.btn-eic h3{
+    color: #67afff;
+    font: 20px BebasNeue;
+    text-align: center;
+}
+
+
+.btn-vru h3{
+    color: #62e201;
+    font: 20px BebasNeue;
+    text-align: center;
+}
+
+.company-mmo{
+    
+    width: 220px;
+    height: 440px;
+}
+.company-eic{
+    
+    width: 220px;
+    height: 440px;
+}
+.company-vru{
+    
+    width: 220px;
+    height: 440px;
+}
+

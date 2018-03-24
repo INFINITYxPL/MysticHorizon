@@ -1,0 +1,148 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    /* height: 1080px; */
+    background: url(../img/bg.jpg) center top no-repeat;
+    overflow-x: hidden;
+    /* color: rgb(255, 255, 255); */
+    /* font-family: 'Lato', sans-serif; */
+}
+@font-face {
+    font-family: BebasNeue;
+    src: url(../fonts/BebasNeueRegular.otf);
+}
+@font-face {
+    font-family: BebasNeueBook;
+    src: url(../fonts/BebasNeueBook.otf);
+}
+@font-face {
+    font-family: EurostileTHea;
+    src: url(../fonts/EurostileTHea.ttf);
+}
+
+div.newscroll {
+    background-color: #252525;
+    width: 330px;
+    height: 300px;
+    overflow-y: visible;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+.newscroll h3 {
+    color: #3891ff;
+    font-family: 'Ubuntu Condensed', Verdana;
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+.newscroll {
+    font-family: 'Ubuntu Condensed', Verdana;
+    font-size: 12px;
+    margin: 0 auto;
+    color: #FFFFFF;
+    overflow: hidden;
+    height: 229px;
+	padding: 25px 0 0 0;
+}
+.newscroll a {
+    font-weight: 400;
+    color: #3891ff;
+}
+
+div.logbook  {
+	background-color: #3a3a3a;
+    width: 225px;
+    height: 235px;
+    overflow-y: scroll;
+    display: block;
+    margin-left: -15px;
+    margin-top: -7px;
+    border-top: 2px solid gray;
+}
+
+.log{
+font-family:Tahoma, Geneva, sans-serif;
+font-size:9px;
+color: white;
+}
+.date{
+font-family:Tahoma, Geneva, sans-serif;
+font-size:10px;
+color: white;
+}
+
+.clan {
+	font-family: EurostileTHea;
+    color: white;
+	margin-left: 34px;
+}
+.username {
+	font-family: EurostileTHea;
+    color: white;
+	margin-left: 83px;
+}
+.title{
+	font-family: EurostileTHea;
+    font-size: 10px;
+    color: #ffe346;
+	margin-left: 34px;
+    margin-top: -12px;
+	}
+
+
+.hbutton{
+    background: #171717;
+    color: white;
+    font: 12px Tahoma;
+    width: 66px;
+    height: 22px;
+    border-bottom: 1px solid #3891ff;
+    border-left: 1px solid #3891ff;
+    border-right: 1px solid #3891ff;
+    border-top: 0px;
+}
+.hbutton:hover {
+    
+}
+	
+.btn-group .button {
+    background-color: #252525;
+    border-top: 2px solid #3891ff;
+    color: white;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    font: 14px BebasNeue;
+    width: 80px;
+    display: block;
+    height: 38px;
+}
+
+.btn-group .button:not(:last-child) {
+    border-bottom: none; /* Prevent double borders */
+}
+
+.btn-group .button:hover {
+    background-color: #3891ff;
+}
+	
+	
+	
+.tg  {
+	border-collapse: collapse;
+    border-spacing: 0;
+    width: 225px;
+    margin-left: -15px;
+    margin-top: -7px;
+}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:2px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color: #898989;border-top-width:2px;border-bottom-width:2px;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:2px 5px;border-style:solid;border-width:0px;border-color: #898989;overflow:hidden;word-break:normal;border-top-width:2px;border-bottom-width:2px;}
+.tg .tg-05x3{font-size:12px;font-family:Tahoma, Geneva, sans-serif !important;;background-color:#262626;color:#ffffff;text-align:right}
+.tg .tg-7f5c{font-size:12px;font-family:Tahoma, Geneva, sans-serif !important;;background-color:#262626;color:#ffffff;text-align:center}
